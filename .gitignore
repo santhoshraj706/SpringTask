@@ -1,0 +1,28 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+# Java / Spring Boot
+**/target/
+**/*.class
+**/*.jar
+**/*.war
+**/*.ear
+**/*.tar.gz
+**/spring-boot-app/.mvn/
+**/spring-boot-app/.metadata/
+
+# IDEs/Editors
+.idea/
+*.iml
+*.iws
+.settings/
+.classpath
+.project
+.factorypath
+.vscode/

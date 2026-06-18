@@ -1,0 +1,6 @@
+{
+  "name": "MongoDB To-Do App",
+  "description": "A full-stack, secure To-Do App connecting to MongoDB Atlas, implementing CRUD, text search, and bcrypt authentication.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
