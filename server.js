@@ -265,7 +265,13 @@ async function connectToDatabase() {
   }
 }
 
-connectToDatabase();
+const dbConnectionPromise = connectToDatabase();
+
+// Middleware to ensure database connection is ready before handling any request
+app.use(async (req, res, next) => {
+  await dbConnectionPromise;
+  next();
+});
 
 // Seed function to provide a premium starter experience
 async function seedSampleData() {
