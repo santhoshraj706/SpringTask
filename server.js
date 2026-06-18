@@ -2,7 +2,6 @@ import express from "express";
 import path from "path";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { createServer as createViteServer } from "vite";
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 
@@ -711,6 +710,7 @@ app.delete("/tasks/:id", authenticateToken, async (req, res) => {
 // Serve static assets and templates
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
@@ -727,6 +727,8 @@ async function startServer() {
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server successfully active and listening on http://localhost:${PORT}`);
   });
+}
+
 if (process.env.VERCEL !== "1") {
   startServer();
 }
