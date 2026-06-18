@@ -148,6 +148,7 @@ This project is configured for deployment on **Vercel**.
 | `PUT` | `/tasks/:id` | Update a task |
 | `DELETE` | `/tasks/:id` | Delete a task |
 | `GET` | `/tasks/overdue` | Get count of overdue tasks |
+| `GET` | `/api/db-status` | Check MongoDB connection status |
 
 ---
 
