@@ -243,6 +243,7 @@ const TaskModel = createModelWrapper(RealTaskModel, inMemoryTasks, "Task");
 
 // Connection state and health indicators
 let dbConnectionStatus = "Initializing...";
+let lastMongoError = null;
 
 async function connectToDatabase() {
   try {
@@ -257,6 +258,7 @@ async function connectToDatabase() {
     await seedSampleData();
   } catch (error) {
     isMongoConnected = false;
+    lastMongoError = error.message;
     dbConnectionStatus = "Sandbox Fallback (Atlas access offline)";
     console.error("MongoDB Connection Failure. Gracefully falling back to Sandbox Engine:", error.message);
     await seedSampleData();
@@ -375,6 +377,7 @@ app.get("/api/db-status", (req, res) => {
     status: dbConnectionStatus,
     dbName: dbName,
     host: mongoURI && mongoURI.includes("@") ? mongoURI.split("@")[1].split("/")[0] : "Local/Internal",
+    error: lastMongoError,
   });
 });
 
