@@ -19,8 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Database configuration — loaded from environment variables only (never hardcode secrets)
-const mongoURI = process.env.MONGODB_URI;
-const dbName = process.env.MONGODB_DB || "todo_database";
+const mongoURI = process.env.MONGODB_URI?.trim();
+const dbName = (process.env.MONGODB_DB || "todo_database").trim();
 
 // Define MongoDB Schemas and Models
 const userSchema = new mongoose.Schema({
@@ -175,7 +175,7 @@ async function createSingleInMemory(collection, data, entityName) {
 const createModelWrapper = (realModel, inMemoryCollection, entityName) => {
   return new Proxy(realModel, {
     get(target, prop, receiver) {
-      if (isMongoConnected) {
+      if (isMongoConnected || process.env.VERCEL === "1") {
         return Reflect.get(target, prop, receiver);
       }
 
@@ -562,7 +562,7 @@ app.get("/tasks", authenticateToken, async (req, res) => {
     let totalItems = 0;
     let tasks = [];
 
-    if (isMongoConnected) {
+    if (isMongoConnected || process.env.VERCEL === "1") {
       totalItems = await RealTaskModel.countDocuments({ userId: req.user._id });
       tasks = await RealTaskModel.find({ userId: req.user._id })
         .sort(sortObjValue)
