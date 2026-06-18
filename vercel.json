@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/api/db-status",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/register",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/login",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/logout",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/tasks",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/tasks/:path*",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/((?!api/|tasks|register|login|logout|assets/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
